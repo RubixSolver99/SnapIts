@@ -1,5 +1,8 @@
 package com.snapits.Main;
 
+import com.snapits.Framework.*;
+import com.snapits.GUI.*;
+
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -12,7 +15,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main extends JFrame {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	
+	public static Framework framework;
+	public static GUI gui;
+
     public static JFrame MainFrame; // not the regular kind
     public static JPanel panelMain;
 
@@ -37,6 +44,9 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] Args) {
+		framework = new Framework();
+		gui = new GUI();
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
