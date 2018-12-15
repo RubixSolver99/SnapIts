@@ -31,7 +31,7 @@ public class Main extends JFrame {
 	}
 
 	public void createView(Graphics g) {
-		panelMain = new JPanel();
+		panelMain = new JPanel(); //connect a JPanel from GUI to here
 
 		getContentPane().add(panelMain);
 	}
