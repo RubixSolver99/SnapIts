@@ -1,7 +1,7 @@
-package com.snapits.Main;
+package src;
 
-import com.snapits.Framework.*;
-import com.snapits.GUI.*;
+import src.Framework.*;
+import src.GUI.*;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;

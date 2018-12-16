@@ -1,4 +1,4 @@
-package com.snapits.Framework;
+package src.Framework;
 
 public class Framework {
 	public Framework() {
@@ -6,6 +6,6 @@ public class Framework {
     }
 
 	public static void init() {
-
+		System.out.println("Hello Framework!");
 	}
 }

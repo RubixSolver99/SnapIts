@@ -1,4 +1,4 @@
-package com.snapits.GUI;
+package src.GUI;
 
 public class GUI {
 	public GUI() {
@@ -6,6 +6,6 @@ public class GUI {
 	}
 
 	public static void init() {
-
+		System.out.println("Hello, GUI!");
 	}
 }
