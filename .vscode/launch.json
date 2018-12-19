@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - FrameworkTest",
+            "request": "launch",
+            "mainClass": "src.Framework.FrameworkTest",
+            "projectName": "SnapIts"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "src.Main.Main",

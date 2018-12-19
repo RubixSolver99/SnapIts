@@ -6,6 +6,7 @@ public class Framework {
     }
 
 	public static void init() {
-		System.out.println("Hello Framework!");
+		//test run
+		System.out.println(PythonIO.runPython());
 	}
 }

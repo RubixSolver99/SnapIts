@@ -1,8 +1,5 @@
 package src;
 
-import src.Framework.*;
-import src.GUI.*;
-
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -14,13 +11,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import src.Framework.Framework;
+import src.GUI.GUI;
+
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public static Framework framework;
 	public static GUI gui;
 
-    public static JFrame MainFrame; // not the regular kind
+    public static JFrame MainFrame;
     public static JPanel panelMain;
 
     public Main() {
@@ -38,14 +38,10 @@ public class Main extends JFrame {
 	}
 
 	public void createView(Graphics g) {
-		panelMain = new JPanel(); //connect a JPanel from GUI to here
-
-		getContentPane().add(panelMain);
+		
 	}
 
 	public static void main(String[] Args) {
-		framework = new Framework();
-		gui = new GUI();
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -57,10 +53,19 @@ public class Main extends JFrame {
 			@Override
 			public void run() {
 				MainFrame = new Main();
-				MainFrame.setVisible(true);
+				
+				framework = new Framework();
+				gui = new GUI();
+
+				//MainFrame.setVisible(true);
 			}
 		});
 
+	}
+
+	public void switchPanels(JPanel panelOld, JPanel panelNew) {
+		getContentPane().remove(panelOld);
+		getContentPane().add(panelNew);
 	}
 
 }
