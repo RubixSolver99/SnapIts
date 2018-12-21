@@ -1,5 +1,7 @@
 package SnapItModules;
 
-public class SnapItConditional {
+import javax.swing.JButton;
+
+public class SnapItConditional extends JButton{
 
 }

@@ -1,5 +1,7 @@
 package SnapItModules;
 
-public class SnapItVariable {
+import javax.swing.JButton;
+
+public class SnapItVariable extends JButton{
 
 }

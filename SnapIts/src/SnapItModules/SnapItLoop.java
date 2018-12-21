@@ -1,5 +1,7 @@
 package SnapItModules;
 
-public class SnapItLoop {
+import javax.swing.JButton;
+
+public class SnapItLoop extends JButton{
 
 }
