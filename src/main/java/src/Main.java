@@ -1,10 +1,11 @@
 package src;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -21,12 +22,11 @@ public class Main extends JFrame {
 	public static GUI gui;
 
     public static JFrame MainFrame;
-    public static JPanel panelMain;
+	public static JPanel panelMain;
 
     public Main() {
-		createView(getGraphics());
 		setTitle("Snap Its");
-		setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+		setPreferredSize(GUI.dimensionFullScreen);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		this.addWindowListener(new WindowAdapter() {
@@ -35,10 +35,6 @@ public class Main extends JFrame {
 			}
 		});
 		pack();
-	}
-
-	public void createView(Graphics g) {
-		
 	}
 
 	public static void main(String[] Args) {
@@ -57,15 +53,10 @@ public class Main extends JFrame {
 				framework = new Framework();
 				gui = new GUI();
 
-				//MainFrame.setVisible(true);
+				MainFrame.setVisible(true);
 			}
 		});
 
-	}
-
-	public void switchPanels(JPanel panelOld, JPanel panelNew) {
-		getContentPane().remove(panelOld);
-		getContentPane().add(panelNew);
 	}
 
 }

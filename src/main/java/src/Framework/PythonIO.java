@@ -15,7 +15,6 @@ public class PythonIO {
 			PrintWriter writer = new PrintWriter("src\\main\\java\\src\\Framework\\Script.py", "UTF-8");
 			writer.print(text);
 			writer.close();
-			System.out.println("Working here");
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +57,6 @@ public class PythonIO {
 		try {
 			p = r.exec("py C:\\Users\\Carson\\git\\SnapIts\\src\\main\\java\\src\\Framework\\Script.py");
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			System.out.println("Yep");
 			while ((s = stdInput.readLine()) != null) {
 				ss += s;
 			}
