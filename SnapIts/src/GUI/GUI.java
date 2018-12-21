@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.File;
-
-import javax.swing.JFileChooser;
-
 import Main.*;
 import Custom.MainMenuBar;
 import Custom.Panel;

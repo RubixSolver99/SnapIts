@@ -10,7 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import GUI.GUI;
-import GUI.Panels.*;
 import Main.Main;
 
 public class MainMenuBar extends JMenuBar {
