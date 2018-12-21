@@ -14,15 +14,15 @@ import Main.Main;
 
 public class MainMenuBar extends JMenuBar {
 	public static final long serialVersionUID = 1L;
-	public static JMenu menu;
+	public static JMenu menuFile, menuEdit;
 	public static JMenuItem menuItemNew, menuItemOpen, menuItemSave, menuItemSaveAs;
 
 	public MainMenuBar() {
 		setBounds(0, 0, GUI.fullScreenWidth, 30);
 
 		// File Menu
-		menu = new JMenu("File");
-		menu.setMnemonic(KeyEvent.VK_1);
+		menuFile = new JMenu("File");
+		menuFile.setMnemonic(KeyEvent.VK_1);
 
 		menuItemNew = new JMenuItem("New Project");
 		menuItemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
@@ -32,7 +32,7 @@ public class MainMenuBar extends JMenuBar {
 				GUI.changePanel(GUI.panelNewProject);
 			}
 		});
-		menu.add(menuItemNew);
+		menuFile.add(menuItemNew);
 
 		menuItemOpen = new JMenuItem("Open Project");
 		menuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -42,7 +42,7 @@ public class MainMenuBar extends JMenuBar {
 				Main.framework.fileIO.openFile("snapits");
 			}
 		});
-		menu.add(menuItemOpen);
+		menuFile.add(menuItemOpen);
 
 		menuItemSave = new JMenuItem("Save Project");
 		menuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -52,10 +52,19 @@ public class MainMenuBar extends JMenuBar {
 				Main.framework.fileIO.saveFile();
 			}
 		});
-		menu.add(menuItemSave);
+		menuFile.add(menuItemSave);
 
-		add(menu);
+		add(menuFile);
 		// End File Menu
+		
+		//Edit Menu
+		menuEdit = new JMenu("Edit");
+		menuEdit.setMnemonic(KeyEvent.VK_2);
+		
+		
+		
+		add(menuEdit);
+		//End Edit Menu
 	}
 
 }
