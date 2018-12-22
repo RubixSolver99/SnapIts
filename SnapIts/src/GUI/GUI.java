@@ -20,6 +20,7 @@ public class GUI {
 	public static Dimension dimensionFullScreen = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public static Font fontDefault = new Font("Roboto Light", Font.PLAIN, 40);
+	public static Font fontSmaller = new Font("Roboto Light", Font.PLAIN, 20);
 
 	public static int fullScreenHeight = dimensionFullScreen.height;
 	public static int fullScreenWidth = dimensionFullScreen.width;

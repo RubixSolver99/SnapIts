@@ -53,6 +53,16 @@ public class MainMenuBar extends JMenuBar {
 			}
 		});
 		menuFile.add(menuItemSave);
+		
+		menuItemSaveAs = new JMenuItem("Save Project As");
+		menuItemSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK+ActionEvent.SHIFT_MASK));
+		menuItemSaveAs.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		menuFile.add(menuItemSaveAs);
 
 		add(menuFile);
 		// End File Menu
