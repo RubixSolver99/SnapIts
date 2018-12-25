@@ -24,9 +24,12 @@ public class Main extends JFrame {
 		setTitle("Snap Its");
 		setPreferredSize(GUI.dimensionFullScreen);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+		setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH); // Start maximized
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+				framework.close();
+				gui.close();
+				
 				System.exit(0);
 			}
 		});

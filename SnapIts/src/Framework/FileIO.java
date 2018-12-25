@@ -1,7 +1,10 @@
 package Framework;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -11,6 +14,16 @@ public class FileIO {
 
 	public FileIO() {
 		fileChooser = new JFileChooser();
+	}
+	
+	public BufferedImage getImage(String path) {
+		BufferedImage s;
+		try {
+			s = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			return null;
+		}
+		return s;
 	}
 
 	public void openFile() {

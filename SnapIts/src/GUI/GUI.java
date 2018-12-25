@@ -7,19 +7,20 @@ import java.awt.Toolkit;
 import Main.*;
 import Custom.MainMenuBar;
 import Custom.Panel;
-import GUI.Panels.NewProject;
+import GUI.Panels.ProjectMain;
 import GUI.Panels.StartUp;
 
 public class GUI {
 	//GUI GLOBAL VARIABLES, CHANGES EVERYWHERE
 
-	public static Color colorTheme1 = new Color(0, 0, 255);
-	public static Color colorTheme2 = new Color(20, 200, 0);
+	public static Color darkerGreyBackground = new Color(18, 18, 18);
+	public static Color darkGreyBackground = new Color(24,24,24);
 	public static Color colorTextDefault = new Color(255, 255, 255);
 
 	public static Dimension dimensionFullScreen = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public static Font fontDefault = new Font("Lucida Console", Font.PLAIN, 20);
+	public static Font fontDefault = new Font("Roboto Light", Font.PLAIN, 40);
+	public static Font fontSmaller = new Font("Roboto Light", Font.PLAIN, 20);
 
 	public static int fullScreenHeight = dimensionFullScreen.height;
 	public static int fullScreenWidth = dimensionFullScreen.width;
@@ -27,18 +28,22 @@ public class GUI {
 	//END GUI GLOBAL VARIABLES
 
 	static Panel currentPanel;
+	static FontImporter fontImporter;
 
-	public static MainMenuBar mainMenuBar;
-	public static Panel panelStartUp, panelNewProject;
+	public MainMenuBar mainMenuBar;
+	public static ProjectMain panelNewProject;
+	public static StartUp panelStartUp;
 
 	public GUI() {
 		init();
 	}
 
-	public static void init() {
+	public void init() {
+		fontImporter = new FontImporter();
+		
 		panelStartUp = new StartUp();
-		panelNewProject = new NewProject();
-
+		panelNewProject = new ProjectMain();
+		
 		currentPanel = panelStartUp;
 
 		mainMenuBar = new MainMenuBar();
@@ -51,7 +56,16 @@ public class GUI {
 		Main.MainFrame.remove(currentPanel);
 		currentPanel = newPanel;
 		Main.MainFrame.add(currentPanel);
+		refresh();
+	}
+
+	public static void refresh() {
 		Main.MainFrame.setVisible(false);
 		Main.MainFrame.setVisible(true);
+	}
+	
+
+	public void close() {
+		
 	}
 }

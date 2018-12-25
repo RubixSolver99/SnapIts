@@ -14,4 +14,9 @@ public class Framework {
 		//test run
 		System.out.println(PythonIO.runPython());
 	}
+	
+	public void close() {
+		
+	}
+	
 }
