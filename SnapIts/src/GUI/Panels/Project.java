@@ -13,25 +13,35 @@ public class Project extends Panel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public class MyGraphics extends JComponent {
-
-        private static final long serialVersionUID = 1L;
-
-        MyGraphics() {
-            setBounds(0, 0, GUI.fullScreenWidth, GUI.fullScreenHeight);
-        }
-
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.fillRect(0, 0, 350, GUI.fullScreenHeight);
-        }
-    }
+	public class SelectorPanel extends Panel {
+		private static final long serialVersionUID = 1L;
+		
+		public SelectorPanel() {
+			setLayout(null);
+			setBounds(0, 0, 350, GUI.fullScreenHeight);
+			setBackground(GUI.darkerGreyBackground);
+		}
+	}
+	
+	public class BuilderPanel extends Panel {
+		private static final long serialVersionUID = 1L;
+		
+		public BuilderPanel() {
+			setLayout(null);
+			setBounds(0, 0, GUI.fullScreenWidth, GUI.fullScreenHeight);
+			setBackground(GUI.darkGreyBackground);
+		}
+	}
 
 	public Project() {
 		setLayout(null);
 		setBounds(0, 0, GUI.fullScreenWidth, GUI.fullScreenHeight);
-		setBackground(GUI.darkGreyBackground);
+		setBackground(null);
+		
+		SnapItCommand test = new SnapItCommand();
+		test.setText("TEST");
+		test.setBounds(50, 50, 100, 100);
+		add(test);
 		
 		JLabel labelTest = new JLabel();
 		labelTest.setBounds(400, 100, 400, 50);
@@ -40,13 +50,8 @@ public class Project extends Panel {
 		labelTest.setFont(GUI.fontDefault);
 		add(labelTest);
 		
-		SnapItCommand test = new SnapItCommand();
-		test.setText("TEST");
-		test.setBounds(50, 50, 100, 100);
-		add(test);
-		
-		add(new MyGraphics());
-		
+		add(new SelectorPanel());
+		add(new BuilderPanel());
 	}
 	
 	
