@@ -109,11 +109,28 @@ public class SnapItCommand extends JButton implements MouseListener {
 				        int tempX = mouseX - offsetX;
 				        int tempY = mouseY - offsetY;
 				        
+				        boolean moveX;
+				        boolean moveY;
+				        
 				        if (tempX >= 1 && tempX + getWidth() <= GUI.fullScreenWidth + 1) {
-				        	setLocation(tempX, getY());
+				        	moveX = true;
+				        } else {
+				        	moveX = false;
 				        }
 				        if (tempY >= 36 && tempY + getHeight() <= GUI.fullScreenWidth + 1) {
+				        	moveY = true;
+				        } else {
+				        	moveY = false;
+				        }
+				        
+				        if (moveX && moveY) {
+				        	setLocation(tempX, tempY);
+				        } else if (!moveX && moveY) {
 				        	setLocation(getX(), tempY);
+				        } else if (moveX && !moveY) {
+				        	setLocation(tempX, getY());
+				        } else {
+				        	setLocation(getX(), getY());
 				        }
 					} while (mouseDown && mouseIn);
 					isRunning = false;
