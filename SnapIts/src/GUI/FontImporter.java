@@ -14,12 +14,11 @@ public class FontImporter {
 	
 	public void importFont(String name) {
 		try {
-		     GraphicsEnvironment ge = 
-		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\" + name + ".ttf")));
 		} catch (IOException|FontFormatException e) {
 		     //Handle exception
-			System.out.println("Font didn\'t load");
+			System.out.println("Font " + name + " didn't load");
 		}
 	}
 	

@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import Main.*;
+
 import Custom.MainMenuBar;
 import Custom.Panel;
-import GUI.Panels.ProjectMain;
+import GUI.Panels.Project;
 import GUI.Panels.StartUp;
+import Main.Main;
 
 public class GUI {
 	//GUI GLOBAL VARIABLES, CHANGES EVERYWHERE
@@ -31,7 +32,7 @@ public class GUI {
 	static FontImporter fontImporter;
 
 	public MainMenuBar mainMenuBar;
-	public static ProjectMain panelNewProject;
+	public static Project panelNewProject;
 	public static StartUp panelStartUp;
 
 	public GUI() {
@@ -42,7 +43,7 @@ public class GUI {
 		fontImporter = new FontImporter();
 		
 		panelStartUp = new StartUp();
-		panelNewProject = new ProjectMain();
+		panelNewProject = new Project();
 		
 		currentPanel = panelStartUp;
 
