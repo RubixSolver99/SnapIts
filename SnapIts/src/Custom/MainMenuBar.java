@@ -33,7 +33,7 @@ public class MainMenuBar extends JMenuBar {
 		menuItemNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GUI.changePanel(GUI.panelNewProject);
+				GUI.changePanel(GUI.panelProject);
 			}
 		});
 		menuFile.add(menuItemNew);

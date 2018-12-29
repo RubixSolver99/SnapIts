@@ -18,7 +18,7 @@ public class GUI {
 	public static Color darkGreyBackground = new Color(24,24,24);
 	public static Color colorTextDefault = new Color(255, 255, 255);
 
-	public static Dimension dimensionFullScreen = Toolkit.getDefaultToolkit().getScreenSize();
+	public static Dimension dimensionFullScreen = new Dimension( (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 80);
 	
 	public static Font fontDefault = new Font("Roboto Light", Font.PLAIN, 40);
 	public static Font fontSmaller = new Font("Roboto Light", Font.PLAIN, 20);
@@ -32,7 +32,7 @@ public class GUI {
 	static FontImporter fontImporter;
 
 	public MainMenuBar mainMenuBar;
-	public static Project panelNewProject;
+	public static Project panelProject;
 	public static StartUp panelStartUp;
 
 	public GUI() {
@@ -43,7 +43,7 @@ public class GUI {
 		fontImporter = new FontImporter();
 		
 		panelStartUp = new StartUp();
-		panelNewProject = new Project();
+		panelProject = new Project();
 		
 		currentPanel = panelStartUp;
 

@@ -32,12 +32,13 @@ public class SnapItCommand extends JButton implements MouseListener {
 	volatile private boolean mouseIn = false;
 	volatile private boolean isRunning = false;
 
-	public SnapItCommand() {
+	public SnapItCommand(String name) {
 		Color backgroundColor = new Color(0, 135, 234);
 		setFocusable(false);
 		setForeground(GUI.colorTextDefault);
 		setFont(GUI.fontSmaller);
-
+		setText(name);
+		
 		normalColor = backgroundColor;
 		addMouseListener(this);
 		setContentAreaFilled(false);
@@ -59,18 +60,30 @@ public class SnapItCommand extends JButton implements MouseListener {
 		// Draws the rounded opaque panel with borders
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // For High quality
 
-		Area a = new Area(new Rectangle(0, cornerRadius, getWidth(), getHeight() - (cornerRadius * 2)));
-		a.add(new Area(new Rectangle(cornerRadius, 0, getWidth() - (cornerRadius * 2), getHeight())));
-		a.add(new Area(new Ellipse2D.Double(0, 0, cornerRadius * 2, cornerRadius * 2)));
-		a.add(new Area(new Ellipse2D.Double(getWidth() - (cornerRadius * 2), 0, cornerRadius * 2, cornerRadius * 2)));
-		a.add(new Area(new Ellipse2D.Double(0, getHeight() - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2)));
-		a.add(new Area(new Ellipse2D.Double(getWidth() - (cornerRadius * 2), getHeight() - (cornerRadius * 2),
+		Area a = new Area(new Rectangle(0, cornerRadius + 10, getWidth(), getHeight() - (cornerRadius * 2) - 20));
+		a.add(new Area(new Rectangle(cornerRadius, 10, getWidth() - (cornerRadius * 2), getHeight() - 20)));
+		a.add(new Area(new Ellipse2D.Double(0, 10, cornerRadius * 2, cornerRadius * 2)));
+		a.add(new Area(new Ellipse2D.Double(getWidth() - (cornerRadius * 2), 10, cornerRadius * 2, cornerRadius * 2)));
+		a.add(new Area(new Ellipse2D.Double(0, getHeight() - (cornerRadius * 2) - 10, cornerRadius * 2, cornerRadius * 2)));
+		a.add(new Area(new Ellipse2D.Double(getWidth() - (cornerRadius * 2), getHeight() - (cornerRadius * 2) - 10,
 				cornerRadius * 2, cornerRadius * 2)));
+		a.add(new Area(new Ellipse2D.Double(25, getHeight() - 20, 20, 20)));
+		a.subtract(new Area(new Ellipse2D.Double(25, 0, 20, 20)));
 		g2d.fill(a);
 
-		// g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 7, 7);
-
 		super.paintComponent(g);
+	}
+	
+	public void setdragging(boolean b) {
+		if (b) {
+			mouseIn = true;
+			mouseDown = true;
+			mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
+			mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
+			offsetX = mouseX - getX();
+			offsetY = mouseY - getY();
+			initThread();
+		}
 	}
 
 	@Override
@@ -115,51 +128,53 @@ public class SnapItCommand extends JButton implements MouseListener {
 	}
 
 	private void initThread() {
-		if (checkAndMark()) {
-			new Thread() {
-				public void run() {
-					Timer timer = new Timer(1, new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							if (mouseDown && mouseIn) {
-								mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
-								mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
+		if (mouseIn) {
+			if (checkAndMark()) {
+				new Thread() {
+					public void run() {
+						Timer timer = new Timer(10, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								if (mouseDown) {
+									mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
+									mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
 
-								int tempX = mouseX - offsetX;
-								int tempY = mouseY - offsetY;
+									int tempX = mouseX - offsetX;
+									int tempY = mouseY - offsetY;
 
-								boolean moveX;
-								boolean moveY;
+									boolean moveX;
+									boolean moveY;
 
-								if (tempX >= 1 && tempX + getWidth() <= GUI.fullScreenWidth + 1) {
-									moveX = true;
-								} else {
-									moveX = false;
+									if (tempX >= 1 && tempX + getWidth() <= GUI.fullScreenWidth + 1) {
+										moveX = true;
+									} else {
+										moveX = false;
+									}
+									if (tempY >= 36 && tempY + getHeight() <= GUI.fullScreenWidth + 1) {
+										moveY = true;
+									} else {
+										moveY = false;
+									}
+
+									if (moveX && moveY) {
+										setLocation(tempX, tempY);
+									} else if (!moveX && moveY) {
+										setLocation(getX(), tempY);
+									} else if (moveX && !moveY) {
+										setLocation(tempX, getY());
+									} else {
+										setLocation(getX(), getY());
+									}
+									repaint();
 								}
-								if (tempY >= 36 && tempY + getHeight() <= GUI.fullScreenWidth + 1) {
-									moveY = true;
-								} else {
-									moveY = false;
-								}
-
-								if (moveX && moveY) {
-									setLocation(tempX, tempY);
-								} else if (!moveX && moveY) {
-									setLocation(getX(), tempY);
-								} else if (moveX && !moveY) {
-									setLocation(tempX, getY());
-								} else {
-									setLocation(getX(), getY());
-								}
-								repaint();
 							}
-						}
-					});
-					timer.setInitialDelay(0);
-					timer.start();
-					isRunning = false;
-				}
-			}.start();
+						});
+						timer.setInitialDelay(0);
+						timer.start();
+						isRunning = false;
+					}
+				}.start();
+			}
 		}
 	}
 }
