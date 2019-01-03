@@ -99,9 +99,10 @@ public class SnapItCommandAdder extends JButton implements MouseListener {
 	private void spawnSnapItCommand() {
 		SnapItCommand temp = new SnapItCommand(name);
 		temp.setBounds(getX() + 1, getY() + 32, getWidth(), getHeight());
-		GUI.panelProject.add(temp);
-		GUI.panelProject.setComponentZOrder(temp, 0);
 		temp.setdragging(true);
+		GUI.panelProject.manager.modules.add(temp);
+		GUI.panelProject.add(GUI.panelProject.manager.modules.get(GUI.panelProject.manager.modules.size() - 1));
+		GUI.panelProject.setComponentZOrder(GUI.panelProject.manager.modules.get(GUI.panelProject.manager.modules.size() - 1), 0);
 		GUI.panelProject.refresh();
 	}
 

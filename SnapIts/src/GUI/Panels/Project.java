@@ -7,12 +7,15 @@ import javax.swing.JScrollPane;
 
 import Custom.Panel;
 import GUI.GUI;
+import SnapItModules.Manager;
 import SnapItModules.Adders.SnapItCommandAdder;
 
 public class Project extends Panel {
 	
 	private static final long serialVersionUID = 1L;
 	private JScrollPane selectorScrollPane;
+	
+	public Manager manager;
 	
 	public class SelectorPanel extends Panel {
 		private static final long serialVersionUID = 1L;
@@ -51,6 +54,8 @@ public class Project extends Panel {
 		setBounds(0, 0, GUI.fullScreenWidth, GUI.fullScreenHeight);
 		setBackground(null);
 		
+		manager = new Manager();
+		
 		selectorScrollPane = new JScrollPane(new SelectorPanel());
 		selectorScrollPane.setBounds(0,30,350,GUI.fullScreenHeight - 30);
 		selectorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -61,5 +66,7 @@ public class Project extends Panel {
 		add(new BuilderPanel());
 	}
 	
-	
+	public void close() {
+		manager.timer.stop();
+	}
 }

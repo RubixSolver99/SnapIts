@@ -27,6 +27,9 @@ public class SnapItCommand extends JButton implements MouseListener {
 
 	int mouseX, mouseY;
 	int offsetX, offsetY;
+	
+	public boolean bottomOn = false;
+	public boolean topOn = false;
 
 	volatile private boolean mouseDown = false;
 	volatile private boolean mouseIn = false;
@@ -70,8 +73,30 @@ public class SnapItCommand extends JButton implements MouseListener {
 		a.add(new Area(new Ellipse2D.Double(25, getHeight() - 20, 20, 20)));
 		a.subtract(new Area(new Ellipse2D.Double(25, 0, 20, 20)));
 		g2d.fill(a);
+		
+		if (bottomOn) {
+			//TYLER UI MAGIC
+			g2d.setColor(Color.RED);
+			g2d.fillRect(0, getHeight() - 20, 100, 20);
+		}
+		
+		if (topOn) {
+			//TYLER UI MAGIC
+			g2d.setColor(Color.RED);
+			g2d.fillRect(0, 0, 100, 20);
+		}
 
 		super.paintComponent(g);
+	}
+	
+	public void setBottomOn(boolean b) {
+		bottomOn = b;
+		repaint();
+	}
+	
+	public void setTopOn(boolean b) {
+		topOn = b;
+		repaint();
 	}
 	
 	public void setdragging(boolean b) {
@@ -117,6 +142,10 @@ public class SnapItCommand extends JButton implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			mouseDown = false;
+			if (topOn) {
+				//use manager to set location....
+				setLocation(x, y);
+			}
 		}
 	}
 
