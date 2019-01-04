@@ -10,11 +10,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 
 import GUI.GUI;
-import Main.Main;
 import SnapItModules.SnapItCommand;
 
 public class SnapItCommandAdder extends JButton implements MouseListener {
@@ -99,10 +99,12 @@ public class SnapItCommandAdder extends JButton implements MouseListener {
 	private void spawnSnapItCommand() {
 		SnapItCommand temp = new SnapItCommand(name);
 		temp.setBounds(getX() + 1, getY() + 32, getWidth(), getHeight());
-		temp.setdragging(true);
-		GUI.panelProject.manager.modules.add(temp);
-		GUI.panelProject.add(GUI.panelProject.manager.modules.get(GUI.panelProject.manager.modules.size() - 1));
-		GUI.panelProject.setComponentZOrder(GUI.panelProject.manager.modules.get(GUI.panelProject.manager.modules.size() - 1), 0);
+		temp.setDragging(true);
+		GUI.panelProject.manager.modules.add(new ArrayList<SnapItCommand>());
+		int size = GUI.panelProject.manager.modules.size();
+		GUI.panelProject.manager.modules.get(size - 1).add(temp);
+		GUI.panelProject.add(GUI.panelProject.manager.modules.get(size - 1).get(0));
+		GUI.panelProject.setComponentZOrder(GUI.panelProject.manager.modules.get(size - 1).get(0), 0);
 		GUI.panelProject.refresh();
 	}
 

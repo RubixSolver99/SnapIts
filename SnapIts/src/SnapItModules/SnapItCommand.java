@@ -25,14 +25,15 @@ public class SnapItCommand extends JButton implements MouseListener {
 
 	public Color normalColor = null;
 
-	int mouseX, mouseY;
-	int offsetX, offsetY;
+	private int mouseX, mouseY;
+	private int offsetX, offsetY;
 	
 	public boolean bottomOn = false;
 	public boolean topOn = false;
-
+	
 	volatile private boolean mouseDown = false;
 	volatile private boolean mouseIn = false;
+	volatile private boolean isAttached = false;
 	volatile private boolean isRunning = false;
 
 	public SnapItCommand(String name) {
@@ -99,7 +100,11 @@ public class SnapItCommand extends JButton implements MouseListener {
 		repaint();
 	}
 	
-	public void setdragging(boolean b) {
+	public void setAttached(boolean b) {
+		isAttached = b;
+	}
+	
+	public void setDragging(boolean b) {
 		if (b) {
 			mouseIn = true;
 			mouseDown = true;
@@ -143,8 +148,7 @@ public class SnapItCommand extends JButton implements MouseListener {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			mouseDown = false;
 			if (topOn) {
-				//use manager to set location....
-				setLocation(x, y);
+				GUI.panelProject.manager.snap();
 			}
 		}
 	}
