@@ -46,6 +46,7 @@ public class SnapItCommand extends JButton implements MouseListener {
 		setFocusable(false);
 		setForeground(GUI.colorTextDefault);
 		setFont(GUI.fontSmaller);
+		setName(name);
 		setText(name);
 		pyCode = code;
 		arrayIndex = index;
@@ -106,6 +107,10 @@ public class SnapItCommand extends JButton implements MouseListener {
 	
 	public int getIndex() {
 		return arrayIndex;
+	}
+	
+	public String getPyCode() {
+		return pyCode;
 	}
 	
 	public void setBottomOn(boolean b) {

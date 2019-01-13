@@ -80,6 +80,11 @@ public class Manager {
 		snap1.setBottomOn(false);
 		snap2.setTopOn(false);
 		sets.get(snap1.getIndex()).add(snap2);
+		sets.get(snap2.getIndex()).remove(snap2);
+		if (sets.get(snap2.getIndex()).isEmpty()) {
+			sets.remove(snap2.getIndex());
+		}
+		snap2.setIndex(snap1.getIndex());
 	}
 
 	// return ArrayList of Integers: (distX, distY)

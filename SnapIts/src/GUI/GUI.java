@@ -31,7 +31,7 @@ public class GUI {
 	static Panel currentPanel;
 	static FontImporter fontImporter;
 
-	public MainMenuBar mainMenuBar;
+	public static MainMenuBar mainMenuBar;
 	public static Project panelProject;
 	public static StartUp panelStartUp;
 
@@ -53,16 +53,17 @@ public class GUI {
 		changePanel(currentPanel);
 	}
 	
-	public static void changePanel(Panel newPanel) {
+	public void changePanel(Panel newPanel) {
 		Main.MainFrame.remove(currentPanel);
 		currentPanel = newPanel;
 		Main.MainFrame.add(currentPanel);
 		refresh();
 	}
 
-	public static void refresh() {
+	public void refresh() {
 		Main.MainFrame.setVisible(false);
 		Main.MainFrame.setVisible(true);
+		mainMenuBar.refresh();
 	}
 	
 

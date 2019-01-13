@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
 
 import GUI.GUI;
@@ -23,7 +25,10 @@ public class MainMenuBar extends JMenuBar {
 
 	public MainMenuBar() {
 		setBounds(0, 0, GUI.fullScreenWidth, 30);
-
+	}
+	
+	public void refresh() {
+		removeAll();
 		// File Menu
 		menuFile = new JMenu("File");
 		menuFile.setMnemonic(KeyEvent.VK_1);
@@ -33,7 +38,8 @@ public class MainMenuBar extends JMenuBar {
 		menuItemNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GUI.changePanel(GUI.panelProject);
+				GUI.panelProject.reset();
+				Main.gui.changePanel(GUI.panelProject);
 			}
 		});
 		menuFile.add(menuItemNew);
@@ -43,7 +49,7 @@ public class MainMenuBar extends JMenuBar {
 		menuItemOpen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Main.framework.fileIO.openFile("snapits");
+				Main.framework.fileIO.openFile();
 			}
 		});
 		menuFile.add(menuItemOpen);
@@ -63,12 +69,21 @@ public class MainMenuBar extends JMenuBar {
 		menuItemSaveAs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Main.framework.fileIO.saveAsFile();
 			}
 		});
 		menuFile.add(menuItemSaveAs);
 
 		add(menuFile);
+		
+		if ((JFrame) SwingUtilities.getWindowAncestor(GUI.panelProject) != Main.MainFrame) {
+			menuItemSave.setEnabled(false);
+			menuItemSaveAs.setEnabled(false);
+		} else {
+			menuItemSave.setEnabled(true);
+			menuItemSaveAs.setEnabled(true);
+		}
+		
 		// End File Menu
 		
 		//Edit Menu

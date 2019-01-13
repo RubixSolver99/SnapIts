@@ -30,8 +30,6 @@ public class SnapItSet extends ArrayList<SnapItCommand> {
 				continue;
 			}
 			
-			System.out.println("TEST");
-			
 			int offset = 0;
 			for (int j = 0; j < i; j++) {
 				offset += get(j).getHeight() - (2 * get(j).cornerRadius);
