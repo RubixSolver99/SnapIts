@@ -25,7 +25,7 @@ public class Project extends Panel {
 			setPreferredSize(new Dimension(350, GUI.fullScreenHeight+1000));
 			setBackground(GUI.darkerGreyBackground);
 
-			SnapItCommandAdder test = new SnapItCommandAdder("TEST");
+			SnapItCommandAdder test = new SnapItCommandAdder("TEST", "print(\"test\")");
 			test.setBounds(50, 50, 100, 100);
 			add(test);
 			

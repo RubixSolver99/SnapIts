@@ -10,17 +10,15 @@ public class Manager {
 
 	public int snapDistX = 100;
 	public int snapDistY = 100;
-	
 
-	public ArrayList<ArrayList<SnapItCommand>> modules = new ArrayList<ArrayList<SnapItCommand>>();
-	
-	public SnapItCommand currentSnap1;
-	public SnapItCommand currentSnap2;
+	public ArrayList<SnapItSet> sets = new ArrayList<SnapItSet>();
 
 	public Timer timer;
-
+	
+	public SnapItCommand snap1;
+	public SnapItCommand snap2;
+	
 	public Manager() {
-
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -33,60 +31,55 @@ public class Manager {
 	}
 
 	public void checkForSnaps() {
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
-
-		for (int i = 0; i < modules.size(); i++) {
-			for (int j = 0; j < modules.get(i).size(); j++) {
-				if (j == 0) {
-					indexes.add(0);
-				}
-				indexes.set(i, indexes.get(i) + 1);
-			}
+		ArrayList<SnapItCommand> checkTop = new ArrayList<SnapItCommand>();
+		ArrayList<SnapItCommand> checkBottom = new ArrayList<SnapItCommand>();
+		
+		for (int i = 0; i < sets.size(); i++) {
+			checkTop.add(sets.get(i).getFirst());
+			checkBottom.add(sets.get(i).getLast());
 		}
-
-		for (int i = 0; i < modules.size(); i++) {
-			for (int j = 0; j < indexes.get(i); j++) {
-				for (int k = 0; k < modules.size(); k++) {
-					for (int l = 0; l < indexes.get(i); l++) {
-						if (i == k && j == l) {
-							continue;
-						}
-
-						SnapItCommand testSnap1;
-						SnapItCommand testSnap2;
-
-						if (modules.get(i).get(j).getY() < modules.get(k).get(l).getY()) {
-							testSnap1 = modules.get(i).get(j);
-							testSnap2 = modules.get(k).get(l);
-						} else if (modules.get(k).get(l).getY() < modules.get(i).get(j).getY()) {
-							testSnap1 = modules.get(k).get(l);
-							testSnap2 = modules.get(i).get(j);
-						} else {
-							testSnap1 = null;
-							testSnap2 = null;
-						}
-
-						ArrayList<Integer> dists = calcDist(testSnap1, testSnap2);
-						if (dists.get(0) != null) {
-							
-						} else {
-							continue;
-						}
-						
-						if (dists.get(0) <= snapDistX && dists.get(0) >= -snapDistX && dists.get(1) <= snapDistY && dists.get(1) >= -snapDistY) {
-								modules.get(i).get(j).setBottomOn(true);
-								modules.get(k).get(l).setTopOn(true);
-								setSnaps(modules.get(i).get(j), modules.get(k).get(l));
-						} else {
-							modules.get(i).get(j).setTopOn(false);
-							modules.get(i).get(j).setBottomOn(false);
-							modules.get(k).get(l).setTopOn(false);
-							modules.get(k).get(l).setBottomOn(false);
-						}
+		
+		for (int i = 0; i < checkTop.size(); i++) {
+			for (int j = 0; j < checkBottom.size(); j++) {
+				if (checkTop.get(i).equals(checkBottom.get(j))) {
+					continue;
+				}
+				
+				ArrayList<Integer> dists = calcDist(checkTop.get(i), checkBottom.get(j));
+				if (dists.get(0) >= -100 && dists.get(0) <= 100 && dists.get(1) >= -100 && dists.get(1) <= 100) {
+					if (checkTop.get(i).getY() > checkBottom.get(j).getY()) {
+						checkTop.get(i).setTopOn(true);
+						checkTop.get(i).setBottomOn(false);
+						checkBottom.get(j).setTopOn(false);
+						checkBottom.get(j).setBottomOn(true);
+						snap1 = checkBottom.get(j);
+						snap2 = checkTop.get(i);
+					} else {
+						checkTop.get(i).setTopOn(false);
+						checkTop.get(i).setBottomOn(false);
+						checkBottom.get(j).setTopOn(false);
+						checkBottom.get(j).setBottomOn(false);
+						snap1 = null;
+						snap2 = null;
 					}
+				} else {
+					checkTop.get(i).setTopOn(false);
+					checkTop.get(i).setBottomOn(false);
+					checkBottom.get(j).setTopOn(false);
+					checkBottom.get(j).setBottomOn(false);
+					snap1 = null;
+					snap2 = null;
 				}
 			}
 		}
+
+	}
+	
+	public void snap() {
+		snap2.setLocation(snap1.getX(), snap1.getY() + snap1.getHeight() - (snap1.cornerRadius * 2));
+		snap1.setBottomOn(false);
+		snap2.setTopOn(false);
+		sets.get(snap1.getIndex()).add(snap2);
 	}
 
 	// return ArrayList of Integers: (distX, distY)
@@ -106,14 +99,5 @@ public class Manager {
 			list.add(null);
 		}
 		return list;
-	}
-	
-	public void setSnaps(SnapItCommand sn1, SnapItCommand sn2) {
-		currentSnap1 = sn1;
-		currentSnap2 = sn2;
-	}
-	
-	public void snap() {
-		currentSnap2.setAttached(true);
 	}
 }

@@ -27,21 +27,28 @@ public class SnapItCommand extends JButton implements MouseListener {
 
 	private int mouseX, mouseY;
 	private int offsetX, offsetY;
+	public int arrayIndex;
+	public final int cornerRadius = 10;
 	
 	public boolean bottomOn = false;
 	public boolean topOn = false;
+	public boolean isMoving = false;
+	
+	public String pyCode;
 	
 	volatile private boolean mouseDown = false;
 	volatile private boolean mouseIn = false;
 	volatile private boolean isAttached = false;
 	volatile private boolean isRunning = false;
 
-	public SnapItCommand(String name) {
+	public SnapItCommand(String name, String code, int index) {
 		Color backgroundColor = new Color(0, 135, 234);
 		setFocusable(false);
 		setForeground(GUI.colorTextDefault);
 		setFont(GUI.fontSmaller);
 		setText(name);
+		pyCode = code;
+		arrayIndex = index;
 		
 		normalColor = backgroundColor;
 		addMouseListener(this);
@@ -50,7 +57,6 @@ public class SnapItCommand extends JButton implements MouseListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		int cornerRadius = 10;
 
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
@@ -86,8 +92,20 @@ public class SnapItCommand extends JButton implements MouseListener {
 			g2d.setColor(Color.RED);
 			g2d.fillRect(0, 0, 100, 20);
 		}
+		
+		if (isAttached) {
+			//TYLER UI MAGIC
+		}
 
 		super.paintComponent(g);
+	}
+	
+	public void setIndex(int index) {
+		arrayIndex = index;
+	}
+	
+	public int getIndex() {
+		return arrayIndex;
 	}
 	
 	public void setBottomOn(boolean b) {
@@ -161,7 +179,9 @@ public class SnapItCommand extends JButton implements MouseListener {
 	}
 
 	private void initThread() {
+		isMoving = false;
 		if (mouseIn) {
+			isMoving = true;
 			if (checkAndMark()) {
 				new Thread() {
 					public void run() {
