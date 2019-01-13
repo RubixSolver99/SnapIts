@@ -2,6 +2,7 @@ package GUI.Panels;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import Custom.Panel;
 import GUI.GUI;
@@ -15,8 +16,10 @@ public class StartUp extends Panel {
 	public StartUp() {
 		setLayout(null);
 		setBackground(GUI.darkGreyBackground);
-		backgroundImage = Main.framework.fileIO.getImage("Assets\\LogoBackground.jpg");
-		logoImage = Main.framework.fileIO.getImage("Assets\\LogoTrans.png");
+		
+		String s = File.separator;
+		backgroundImage = Main.framework.fileIO.getImage("Assets" + s + "LogoBackground.jpg");
+		logoImage = Main.framework.fileIO.getImage("Assets" + s + "LogoTrans.png");
 
 		if (backgroundImage == null || logoImage == null) {
 			// if the images weren't returned......

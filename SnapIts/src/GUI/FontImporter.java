@@ -13,9 +13,10 @@ public class FontImporter {
 	}
 	
 	public void importFont(String name) {
+		String s = File.separator;
 		try {
 		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\" + name + ".ttf")));
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts" + s + name + ".ttf")));
 		} catch (IOException|FontFormatException e) {
 		     //Handle exception
 			System.out.println("Font " + name + " didn't load");
